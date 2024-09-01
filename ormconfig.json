@@ -1,0 +1,12 @@
+{
+    "type": "oracle",
+    "host": "hostname",
+    "port": 1521,
+    "username": "username",
+    "password": "password",
+    "sid": "SID",
+    "synchronize": true,
+    "logging": false,
+    "entities": ["src/entities/**/*.ts"]
+  }
+  
