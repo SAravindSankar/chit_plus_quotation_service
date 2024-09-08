@@ -22,12 +22,30 @@ morgan.token("res-log", (req: Request, res: Response) => {
   });
 });
 
+// Custom token to log both request and response
+morgan.token("req-res-log", (req: Request, res: Response) => {
+  return JSON.stringify({
+    request: {
+      method: req?.method,
+      url: req?.originalUrl,
+      query: req?.query,
+      body: req?.body,
+      params: req?.params,
+    },
+    response: {
+      statusCode: res?.statusCode,
+      statusMessage: res?.statusMessage,
+      resLocalBody: res?.locals?.body,
+    },
+  });
+});
+
 const stream: StreamOptions = {
   write: (message: string) => logger.info(message.trim()),
 };
 
 export const setupMorganMiddleware = (app: any) => {
-  app.use(
+  /* app.use(
     morgan(
       ":req-log",
       { stream, immediate: true } // Log request immediately
@@ -38,6 +56,13 @@ export const setupMorganMiddleware = (app: any) => {
     morgan(
       ":res-log",
       { stream } // Log response after response is sent
+    )
+  ); */
+
+  app.use(
+    morgan(
+      ":req-res-log",
+      { stream } // Log request and response together
     )
   );
 };
