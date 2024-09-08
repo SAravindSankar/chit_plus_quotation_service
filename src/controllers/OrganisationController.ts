@@ -11,8 +11,7 @@ class OrganisationController {
       const result = await getAllBranches(branchName);
       // Capture the response body before sending it
       res.locals.body = result;
-      //res.status(200).json(result);
-      res.status(500).json({ message: "Error fetching branches" });
+      res.status(200).json(result);
     } catch (error) {
       logger.error("Error fetching branches:" + error);
       console.error("Error fetching branches:", error);
