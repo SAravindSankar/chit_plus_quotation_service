@@ -1,17 +1,17 @@
 import "reflect-metadata";
-import { DataSource, EntityTarget, ObjectLiteral } from "typeorm";
-import dotenv from "dotenv";
+import { DataSource } from "typeorm";
 import { Branch } from "../entities/Branch";
 import { Company } from "../entities/Company";
-dotenv.config();
+import properties from "../config/Properties";
+//dotenv.config();
 
 export const AppDataSource = new DataSource({
   type: "oracle",
-  host: process.env.DB_HOST,
-  port: Number(process.env.DB_PORT),
-  username: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  sid: process.env.DB_SID,
+  host: properties.DB_HOST,
+  port: properties.DB_PORT,
+  username: properties.DB_USERNAME,
+  password: properties.DB_PASSWORD,
+  sid: properties.DB_SID,
   synchronize: true,
   logging: false,
   entities: [Branch, Company],

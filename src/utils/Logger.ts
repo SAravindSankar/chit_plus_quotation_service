@@ -4,12 +4,13 @@ import * as path from "path";
 import * as dotenv from "dotenv";
 import DailyRotateFile from "winston-daily-rotate-file"; // Import DailyRotateFile
 import moment from "moment-timezone"; // Import moment-timezone
+import properties from "../config/Properties";
 
 // Load environment variables from .env file
 dotenv.config();
 
 // Define the base log directory from environment variable
-const baseDir = process.env.BASE_DIR || path.resolve(__dirname);
+const baseDir = properties.BASE_DIR || path.resolve(__dirname);
 
 // Join the "logs" folder to the base log directory
 const logDir = path.join(baseDir, "logs");
