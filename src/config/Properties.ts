@@ -11,6 +11,7 @@ interface Properties {
   DB_PASSWORD: string;
   DB_SID: string;
   BASE_DIR: string;
+  JWT_SECRET?: string;
 }
 
 // Get the BASE_DIR from command-line arguments
@@ -59,6 +60,7 @@ const properties: Properties = {
   DB_USERNAME: getStringProperty("DB_USERNAME", "RMARETPLUS"),
   DB_PASSWORD: getStringProperty("DB_PASSWORD", "Chitplus123#"),
   DB_SID: getStringProperty("DB_SID", "CHITPLUS"),
+  JWT_SECRET: getStringProperty("JWT_SECRET", "CHIT_PLUS"),
   BASE_DIR: BASE_DIR,
 };
 

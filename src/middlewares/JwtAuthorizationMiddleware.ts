@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
+import properties from "../config/Properties";
 
-const secretKey = process.env.JWT_SECRET || "CHIT_PLUS"; // Use environment variable for secret key
+const secretKey = properties.JWT_SECRET || "CHIT_PLUS"; // Use environment variable for secret key
 console.log("secretKey:", secretKey);
 //Sample: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.ycJ8-YkyQBgsWUh8GxwN_v0IOMgd9aD9bN2PBOW8n90
 
