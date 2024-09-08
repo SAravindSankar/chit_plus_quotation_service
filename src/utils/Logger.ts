@@ -3,6 +3,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as dotenv from "dotenv";
 import DailyRotateFile from "winston-daily-rotate-file"; // Import DailyRotateFile
+import moment from "moment-timezone"; // Import moment-timezone
 
 // Load environment variables from .env file
 dotenv.config();
@@ -18,10 +19,14 @@ if (!fs.existsSync(logDir)) {
   fs.mkdirSync(logDir, { recursive: true });
 }
 
+// Custom timestamp format function
+const timestampFormat = () =>
+  moment().tz(moment.tz.guess()).format("YYYY-MM-DD HH:mm:ss");
+
 const logger = createLogger({
   level: "info", // Ensure the logger level is set to "info"
   format: format.combine(
-    format.timestamp(),
+    format.timestamp({ format: timestampFormat }),
     format.printf(
       ({ timestamp, level, message }) => `${timestamp} [${level}]: ${message}`
     )
@@ -32,7 +37,7 @@ const logger = createLogger({
       filename: path.join(logDir, "quotation-service-%DATE%.log"),
       datePattern: "DD_MM_YYYY",
       zippedArchive: false,
-      maxSize: "20m",
+      maxSize: "30m",
       maxFiles: "14d",
       createSymlink: true,
       symlinkName: "quotation-service.log",
