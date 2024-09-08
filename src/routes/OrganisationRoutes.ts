@@ -1,8 +1,11 @@
 import { Router } from "express";
-import { getBranches } from "../controllers/OrganisationController";
+import OrganisationController from "../controllers/OrganisationController";
 
 const router = Router();
 
-router.get("/branches", getBranches);
+router.get(
+  "/branches",
+  OrganisationController.getBranches.bind(OrganisationController)
+);
 
 export default router;
