@@ -46,4 +46,16 @@ const logger = createLogger({
   ],
 });
 
+// Define the type for the stream property
+interface LoggerStream {
+  write: (message: string) => void;
+}
+
+// Extend the logger object to include the stream property
+(logger as any).stream = {
+  write: (message: string) => {
+    logger.info(message.trim());
+  },
+} as LoggerStream;
+
 export default logger;
