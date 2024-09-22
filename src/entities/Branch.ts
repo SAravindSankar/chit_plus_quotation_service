@@ -1,154 +1,150 @@
-import "reflect-metadata";
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
-  ManyToOne,
+  Entity,
   JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
 } from "typeorm";
 import { Company } from "./Company";
 
-@Entity()
+@Entity("branch")
 export class Branch {
-  @PrimaryGeneratedColumn()
-  branchpk?: number; // BRANCHPK NOT NULL NUMBER(4)
+  @Column("varchar2", { name: "pin", nullable: true, length: 6 })
+  pin: string | null;
 
-  @Column({ type: "varchar", length: 40, nullable: true })
-  name?: string; // NAME NOT NULL VARCHAR2(40)
+  @Column("char", { name: "mergeStarplus", nullable: true, length: 1 })
+  mergeStarplus: string | null;
 
-  @Column({ type: "varchar", length: 100, nullable: true })
-  address?: string; // ADDRESS NOT NULL VARCHAR2(100)
+  @Column("number", { name: "downfk", nullable: true })
+  downfk: number | null;
 
-  @Column({ type: "varchar", length: 20, nullable: true })
-  city?: string; // CITY NOT NULL VARCHAR2(20)
+  @Column("number", { name: "cferfk", nullable: true })
+  cferfk: number | null;
 
-  @Column({ type: "varchar", length: 20, nullable: true })
-  state?: string; // STATE VARCHAR2(20)
+  @Column("number", { name: "tferfk", nullable: true })
+  tferfk: number | null;
 
-  @Column({ type: "varchar", length: 6, nullable: true })
-  pincode?: string; // PINCODE VARCHAR2(6)
+  @Column("char", { name: "corpBran", nullable: true, length: 1 })
+  corpBran: string | null;
 
-  @Column({ type: "varchar", length: 25, nullable: true })
-  phone?: string; // PHONE NOT NULL VARCHAR2(25)
+  @Column("varchar2", { name: "code", nullable: true, length: 2 })
+  code: string | null;
 
-  @Column({ type: "varchar", length: 25, nullable: true })
-  fax?: string; // FAX VARCHAR2(25)
+  @Column("varchar2", { name: "unitpfcode", nullable: true, length: 15 })
+  unitpfcode: string | null;
 
-  @Column({ type: "varchar", length: 40, nullable: true })
-  email?: string; // EMAIL VARCHAR2(40)
+  @Column("varchar2", { name: "narr2", nullable: true, length: 30 })
+  narr2: string | null;
 
-  @Column({ type: "varchar", length: 25, nullable: true })
-  cperson?: string; // CPERSON VARCHAR2(25)
+  @Column("varchar2", { name: "narr1", nullable: true, length: 60 })
+  narr1: string | null;
 
-  @Column({ type: "varchar", length: 25, nullable: true })
-  cdept?: string; // CDEPT VARCHAR2(25)
+  @Column("date", { name: "dayCloseBkupShow", nullable: true })
+  dayCloseBkupShow: Date | null;
 
-  @Column({ type: "raw", length: 16 })
-  rrowid?: Buffer; // RROWID NOT NULL RAW(16 BYTE)
+  @Column("char", { name: "bkType", nullable: true, length: 1 })
+  bkType: string | null;
 
-  @Column({ type: "number", width: 4, nullable: true })
-  companyfk?: number; // COMPANYFK NOT NULL NUMBER(4)
+  @Column("date", { name: "dayCloseBkup2", nullable: true })
+  dayCloseBkup2: Date | null;
 
-  @Column({ type: "number", width: 4, nullable: true })
-  cbyfk?: number; // CBYFK NUMBER(4)
+  @Column("char", { name: "oeflg", nullable: true, length: 1 })
+  oeflg: string | null;
 
-  @Column({ type: "date", nullable: true })
-  cdate?: Date; // CDATE DATE
+  @Column("varchar2", { name: "rephead", nullable: true, length: 10 })
+  rephead: string | null;
 
-  @Column({ type: "number", width: 4, nullable: true })
-  mbyfk?: number; // MBYFK NUMBER(4)
+  @Column("char", { name: "sessCloseBkup", nullable: true, length: 1 })
+  sessCloseBkup: string | null;
 
-  @Column({ type: "date", nullable: true })
-  mdate?: Date; // MDATE DATE
+  @Column("char", { name: "sessCloseProc", nullable: true, length: 1 })
+  sessCloseProc: string | null;
 
-  @Column({ type: "number", nullable: true })
-  abyfk?: number; // ABYFK NUMBER
+  @Column("char", { name: "sessCloseInit", nullable: true, length: 1 })
+  sessCloseInit: string | null;
 
-  @Column({ type: "date", nullable: true })
-  adate?: Date; // ADATE DATE
+  @Column("char", { name: "daySession", nullable: true, length: 1 })
+  daySession: string | null;
 
-  @Column({ type: "varchar", length: 20, nullable: true })
-  delflag?: string; // DELFLAG VARCHAR2(20)
+  @Column("varchar2", { name: "branchSign", nullable: true, length: 30 })
+  branchSign: string | null;
 
-  @Column({ type: "varchar", length: 10, nullable: true })
-  shortname?: string; // SHORTNAME VARCHAR2(10)
+  @Column("date", { name: "dayCloseInit", nullable: true })
+  dayCloseInit: Date | null;
 
-  @Column({ type: "date", nullable: true })
-  updDateTime?: Date; // UPD_DATE_TIME DATE
+  @Column("varchar2", { name: "mobileNo", nullable: true, length: 25 })
+  mobileNo: string | null;
 
-  @Column({ type: "date", nullable: true })
-  dayCloseProc?: Date; // DAY_CLOSE_PROC DATE
+  @Column("date", { name: "dayCloseBkup", nullable: true })
+  dayCloseBkup: Date | null;
 
-  @Column({ type: "date", nullable: true })
-  dayCloseBkup?: Date; // DAY_CLOSE_BKUP DATE
+  @Column("date", { name: "dayCloseProc", nullable: true })
+  dayCloseProc: Date | null;
 
-  @Column({ type: "varchar", length: 25, nullable: true })
-  mobileNo?: string; // MOBILE_NO VARCHAR2(25)
+  @Column("date", { name: "updDateTime", nullable: true })
+  updDateTime: Date | null;
 
-  @Column({ type: "date", nullable: true })
-  dayCloseInit?: Date; // DAY_CLOSE_INIT DATE
+  @Column("varchar2", { name: "shortname", nullable: true, length: 10 })
+  shortname: string | null;
 
-  @Column({ type: "varchar", length: 30, nullable: true })
-  branchSign?: string; // BRANCHSIGN VARCHAR2(30)
+  @Column("varchar2", { name: "delflag", nullable: true, length: 20 })
+  delflag: string | null;
 
-  @Column({ type: "char", length: 1, nullable: true })
-  daySession?: string; // DAY_SESSION CHAR(1)
+  @Column("date", { name: "adate", nullable: true })
+  adate: Date | null;
 
-  @Column({ type: "char", length: 1, nullable: true })
-  sessCloseInit?: string; // SESS_CLOSE_INIT CHAR(1)
+  @Column("number", { name: "abyfk", nullable: true })
+  abyfk: number | null;
 
-  @Column({ type: "char", length: 1, nullable: true })
-  sessCloseProc?: string; // SESS_CLOSE_PROC CHAR(1)
+  @Column("date", { name: "mdate", nullable: true })
+  mdate: Date | null;
 
-  @Column({ type: "char", length: 1, nullable: true })
-  sessCloseBkup?: string; // SESS_CLOSE_BKUP CHAR(1)
+  @Column("number", { name: "mbyfk", nullable: true })
+  mbyfk: number | null;
 
-  @Column({ type: "varchar", length: 10, nullable: true })
-  rephead?: string; // REPHEAD VARCHAR2(10)
+  @Column("date", { name: "cdate", nullable: true })
+  cdate: Date | null;
 
-  @Column({ type: "char", length: 1, nullable: true })
-  oeflg?: string; // OEFLG CHAR(1)
+  @Column("number", { name: "cbyfk", nullable: true })
+  cbyfk: number | null;
 
-  @Column({ type: "date", nullable: true })
-  dayCloseBkup2?: Date; // DAY_CLOSE_BKUP2 DATE
+  @Column("raw", { name: "rrowid", length: 16 })
+  rrowid: Buffer;
 
-  @Column({ type: "char", length: 1, nullable: true })
-  bkType?: string; // BK_TYPE CHAR(1)
+  @Column("varchar2", { name: "cdept", nullable: true, length: 25 })
+  cdept: string | null;
 
-  @Column({ type: "date", nullable: true })
-  dayCloseBkupShow?: Date; // DAY_CLOSE_BKUP_SHOW DATE
+  @Column("varchar2", { name: "cperson", nullable: true, length: 25 })
+  cperson: string | null;
 
-  @Column({ type: "varchar", length: 60, nullable: true })
-  narr1?: string; // NARR1 VARCHAR2(60)
+  @Column("varchar2", { name: "email", nullable: true, length: 40 })
+  email: string | null;
 
-  @Column({ type: "varchar", length: 30, nullable: true })
-  narr2?: string; // NARR2 VARCHAR2(30)
+  @Column("varchar2", { name: "fax", nullable: true, length: 25 })
+  fax: string | null;
 
-  @Column({ type: "varchar", length: 15, nullable: true })
-  unitpfcode?: string; // UNITPFCODE VARCHAR2(15)
+  @Column("varchar2", { name: "phone", nullable: true, length: 25 })
+  phone: string | null;
 
-  @Column({ type: "varchar", length: 2, nullable: true })
-  code?: string; // CODE VARCHAR2(2)
+  @Column("varchar2", { name: "pincode", nullable: true, length: 6 })
+  pincode: string | null;
 
-  @Column({ type: "char", length: 1, nullable: true })
-  corpBran?: string; // CORP_BRAN CHAR(1)
+  @Column("varchar2", { name: "state", nullable: true, length: 20 })
+  state: string | null;
 
-  @Column({ type: "number", width: 10, nullable: true })
-  tferfk?: number; // TFERFK NUMBER(10)
+  @Column("varchar2", { name: "city", nullable: true, length: 20 })
+  city: string | null;
 
-  @Column({ type: "number", width: 10, nullable: true })
-  cferfk?: number; // CFERFK NUMBER(10)
+  @Column("varchar2", { name: "address", nullable: true, length: 100 })
+  address: string | null;
 
-  @Column({ type: "number", width: 10, nullable: true })
-  downfk?: number; // DOWNFK NUMBER(10)
+  @Column("varchar2", { name: "name", nullable: true, length: 40 })
+  name: string | null;
 
-  @Column({ type: "char", length: 1, nullable: true })
-  mergeStarplus?: string; // MERGE_STARPLUS CHAR(1)
+  @PrimaryGeneratedColumn({ type: "number", name: "branchpk" })
+  branchpk: number;
 
-  @Column({ type: "varchar", length: 6, nullable: true })
-  pin?: string; // PIN VARCHAR2(6)
-
-  @ManyToOne(() => Company)
-  @JoinColumn({ name: "companyfk" })
-  company?: Company;
+  @ManyToOne(() => Company, (company) => company.branches)
+  @JoinColumn([{ name: "companyfk", referencedColumnName: "companypk" }])
+  companyfk: Company;
 }
