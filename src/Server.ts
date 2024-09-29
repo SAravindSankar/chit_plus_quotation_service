@@ -1,8 +1,9 @@
 import "reflect-metadata";
 import app from "./App";
 import { connectDB } from "./config/Database";
+import properties from "./config/Properties";
 
-const PORT = process.env.PORT || 3000;
+const PORT = properties.PORT || 3000;
 
 connectDB().then(() => {
   app.listen(PORT, () => {
