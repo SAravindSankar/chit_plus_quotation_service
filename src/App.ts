@@ -1,13 +1,13 @@
 import express, { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 // import { validationMiddleware } from './middlewares/ValidationMiddleware';
-import { errorHandler } from "./utils/ErrorHandler";
 import OrganisationRoutes from "./routes/OrganisationRoutes";
 import BoardRoutes from "./routes/BoardRoutes";
 import ProductRoutes from "./routes/ProductRoutes";
 import { setupMorganMiddleware } from "./middlewares/MorganLoggerMiddleware"; // Import Morgan setup function
 import { responseBodyCapture } from "./middlewares/ResponseBodyCaptureMiddleware"; // Import response body capture middleware
 import { jwtAuthorization } from "./middlewares/JwtAuthorizationMiddleware"; // Import JWT authorization middleware
+import ErrorMiddleware from "./middlewares/ErrorMiddleware"; // Import JWT authorization middleware
 
 dotenv.config();
 
@@ -27,6 +27,6 @@ app.use("/api/product", ProductRoutes);
 
 // app.post('/users', validationMiddleware(User), createUserController);
 
-app.use(errorHandler);
+app.use(ErrorMiddleware);
 
 export default app;
