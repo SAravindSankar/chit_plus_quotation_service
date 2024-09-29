@@ -1,0 +1,44 @@
+import { Column, Entity } from "typeorm";
+
+@Entity("MDAY_PUR_DET13")
+export class MdayPurDet13 {
+  @Column("number", {
+    name: "PUR_DET13PK",
+    nullable: true,
+    precision: 8,
+    scale: 0,
+  })
+  purDet13Pk: number | null;
+
+  @Column("number", {
+    name: "PUR_DET1FK",
+    nullable: true,
+    precision: 8,
+    scale: 0,
+  })
+  purDet1Fk: number | null;
+
+  @Column("number", { name: "PRODFK", nullable: true, precision: 6, scale: 0 })
+  prodfk: number | null;
+
+  @Column("varchar2", { name: "NAME", nullable: true, length: 20 })
+  name: string | null;
+
+  @Column("number", { name: "PCS", nullable: true, precision: 3, scale: 0 })
+  pcs: number | null;
+
+  @Column("char", { name: "KARROT", nullable: true, length: 5 })
+  karrot: string | null;
+
+  @Column("number", { name: "AMOUNT", nullable: true, precision: 8, scale: 2 })
+  amount: number | null;
+
+  @Column("varchar2", { name: "DELFLAG", nullable: true, length: 20 })
+  delflag: string | null;
+
+  @Column("number", { name: "QTY", nullable: true, precision: 8, scale: 3 })
+  qty: number | null;
+
+  @Column("number", { name: "RATE", nullable: true, precision: 8, scale: 2 })
+  rate: number | null;
+}
