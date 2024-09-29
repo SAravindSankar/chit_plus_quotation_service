@@ -1,13 +1,15 @@
 import { Router } from "express";
-import OrganisationController from "../controllers/OrganisationController";
-//import { LogMethodEntryExit1 } from "../middlewares/LoggingMiddleware";
+import {
+  getBranches,
+  getCounters,
+  userLogin,
+} from "../controllers/OrganisationController";
+import { fetchUser } from "../services/OrganisationService";
 
 const router = Router();
 
-//router.use(LogMethodEntryExit1);
-
-router.get("/branches", (req, res) =>
-  OrganisationController.getBranches(req, res)
-);
+router.get("/branches", getBranches);
+router.get("/counters", getCounters);
+router.post("/login", userLogin);
 
 export default router;

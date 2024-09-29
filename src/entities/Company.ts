@@ -1,125 +1,133 @@
-import "reflect-metadata";
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Branch } from "./Branch";
 
-@Entity({ synchronize: false })
+@Entity("company")
 export class Company {
-  @PrimaryGeneratedColumn()
-  companypk?: number; // COMPANYPK NOT NULL NUMBER(4)
+  @Column("number", { name: "mobileNo", nullable: true })
+  mobileNo: number | null;
 
-  @Column({ type: "varchar2", length: 50, nullable: true })
-  name?: string; // NAME VARCHAR2(50)
+  @Column("char", { name: "prodErp", nullable: true, length: 1 })
+  prodErp: string | null;
 
-  @Column({ type: "varchar2", length: 100, nullable: true })
-  regdAdd?: string; // REGD_ADD VARCHAR2(100)
+  @Column("number", { name: "downfk", nullable: true })
+  downfk: number | null;
 
-  @Column({ type: "varchar2", length: 20, nullable: true })
-  regdCity?: string; // REGD_CITY VARCHAR2(20)
+  @Column("number", { name: "cferfk", nullable: true })
+  cferfk: number | null;
 
-  @Column({ type: "varchar2", length: 20, nullable: true })
-  regdState?: string; // REGD_STATE VARCHAR2(20)
+  @Column("number", { name: "tferfk", nullable: true })
+  tferfk: number | null;
 
-  @Column({ type: "char", length: 6, nullable: true })
-  regdPin?: string; // REGD_PIN CHAR(6)
+  @Column("varchar2", { name: "tin", nullable: true, length: 15 })
+  tin: string | null;
 
-  @Column({ type: "varchar2", length: 25, nullable: true })
-  regdPhone?: string; // REGD_PHONE VARCHAR2(25)
+  @Column("char", { name: "code", nullable: true, length: 4 })
+  code: string | null;
 
-  @Column({ type: "varchar2", length: 25, nullable: true })
-  regdFax?: string; // REGD_FAX VARCHAR2(25)
+  @Column("number", {
+    name: "stdCarrot",
+    nullable: true,
+    precision: 8,
+    scale: 3,
+  })
+  stdCarrot: number | null;
 
-  @Column({ type: "varchar2", length: 40, nullable: true })
-  regdEmail?: string; // REGD_EMAIL VARCHAR2(40)
+  @Column("char", { name: "glaccBill", nullable: true, length: 1 })
+  glaccBill: string | null;
 
-  @Column({ type: "varchar2", length: 100, nullable: true })
-  coAdd?: string; // CO_ADD VARCHAR2(100)
+  @Column("char", { name: "taxBill", nullable: true, length: 1 })
+  taxBill: string | null;
 
-  @Column({ type: "varchar2", length: 20, nullable: true })
-  coCity?: string; // CO_CITY VARCHAR2(20)
+  @Column("varchar2", { name: "cstNo", nullable: true, length: 25 })
+  cstNo: string | null;
 
-  @Column({ type: "varchar2", length: 20, nullable: true })
-  coState?: string; // CO_STATE VARCHAR2(20)
+  @Column("varchar2", { name: "lstNo", nullable: true, length: 25 })
+  lstNo: string | null;
 
-  @Column({ type: "char", length: 6, nullable: true })
-  coPin?: string; // CO_PIN CHAR(6)
+  @Column("varchar2", { name: "areacode", nullable: true, length: 10 })
+  areacode: string | null;
 
-  @Column({ type: "varchar2", length: 25, nullable: true })
-  coPhone?: string; // CO_PHONE VARCHAR2(25)
+  @Column("varchar2", { name: "rcNo", nullable: true, length: 30 })
+  rcNo: string | null;
 
-  @Column({ type: "varchar2", length: 25, nullable: true })
-  coFax?: string; // CO_FAX VARCHAR2(25)
+  @Column("varchar2", { name: "shortname", nullable: true, length: 10 })
+  shortname: string | null;
 
-  @Column({ type: "varchar2", length: 40, nullable: true })
-  coEmail?: string; // CO_EMAIL VARCHAR2(40)
+  @Column("varchar2", { name: "delflag", nullable: true, length: 20 })
+  delflag: string | null;
 
-  @Column({ type: "varchar2", length: 40, nullable: true })
-  urlName?: string; // URL_NAME VARCHAR2(40)
+  @Column("date", { name: "adate", nullable: true })
+  adate: Date | null;
 
-  @Column({ type: "raw", length: 16 })
-  rrowid?: Buffer; // RROWID RAW(16)
+  @Column("number", { name: "abyfk", nullable: true })
+  abyfk: number | null;
 
-  @Column({ type: "number", precision: 4, scale: 0, nullable: true })
-  cbyfk?: number; // CBYFK NUMBER(4)
+  @Column("date", { name: "mdate", nullable: true })
+  mdate: Date | null;
 
-  @Column({ type: "date", nullable: true })
-  cdate?: Date; // CDATE DATE
+  @Column("number", { name: "mbyfk", nullable: true })
+  mbyfk: number | null;
 
-  @Column({ type: "number", precision: 4, scale: 0, nullable: true })
-  mbyfk?: number; // MBYFK NUMBER(4)
+  @Column("date", { name: "cdate", nullable: true })
+  cdate: Date | null;
 
-  @Column({ type: "date", nullable: true })
-  mdate?: Date; // MDATE DATE
+  @Column("number", { name: "cbyfk", nullable: true })
+  cbyfk: number | null;
 
-  @Column({ type: "number", precision: 0, scale: 0, nullable: true })
-  abyfk?: number; // ABYFK NUMBER
+  @Column("raw", { name: "rrowid", length: 16 })
+  rrowid: Buffer;
 
-  @Column({ type: "date", nullable: true })
-  adate?: Date; // ADATE DATE
+  @Column("varchar2", { name: "urlName", nullable: true, length: 40 })
+  urlName: string | null;
 
-  @Column({ type: "varchar2", length: 20, nullable: true })
-  delflag?: string; // DELFLAG VARCHAR2(20)
+  @Column("varchar2", { name: "coEmail", nullable: true, length: 40 })
+  coEmail: string | null;
 
-  @Column({ type: "varchar2", length: 10, nullable: true })
-  shortname?: string; // SHORTNAME VARCHAR2(10)
+  @Column("varchar2", { name: "coFax", nullable: true, length: 25 })
+  coFax: string | null;
 
-  @Column({ type: "varchar2", length: 30, nullable: true })
-  rcNo?: string; // RC_NO VARCHAR2(30)
+  @Column("varchar2", { name: "coPhone", nullable: true, length: 25 })
+  coPhone: string | null;
 
-  @Column({ type: "varchar2", length: 10, nullable: true })
-  areacode?: string; // AREACODE VARCHAR2(10)
+  @Column("char", { name: "coPin", nullable: true, length: 6 })
+  coPin: string | null;
 
-  @Column({ type: "varchar2", length: 25, nullable: true })
-  lstNo?: string; // LST_NO VARCHAR2(25)
+  @Column("varchar2", { name: "coState", nullable: true, length: 20 })
+  coState: string | null;
 
-  @Column({ type: "varchar2", length: 25, nullable: true })
-  cstNo?: string; // CST_NO VARCHAR2(25)
+  @Column("varchar2", { name: "coCity", nullable: true, length: 20 })
+  coCity: string | null;
 
-  @Column({ type: "char", length: 1, nullable: true })
-  taxBill?: string; // TAX_BILL CHAR(1)
+  @Column("varchar2", { name: "coAdd", nullable: true, length: 100 })
+  coAdd: string | null;
 
-  @Column({ type: "char", length: 1, nullable: true })
-  glaccBill?: string; // GLACC_BILL CHAR(1)
+  @Column("varchar2", { name: "regdEmail", nullable: true, length: 40 })
+  regdEmail: string | null;
 
-  @Column({ type: "number", precision: 8, scale: 3, nullable: true })
-  stdCarrot?: number; // STD_CARROT NUMBER(8,3)
+  @Column("varchar2", { name: "regdFax", nullable: true, length: 25 })
+  regdFax: string | null;
 
-  @Column({ type: "char", length: 4, nullable: true })
-  code?: string; // CODE CHAR(4)
+  @Column("varchar2", { name: "regdPhone", nullable: true, length: 25 })
+  regdPhone: string | null;
 
-  @Column({ type: "varchar2", length: 15, nullable: true })
-  tin?: string; // TIN VARCHAR2(15)
+  @Column("char", { name: "regdPin", nullable: true, length: 6 })
+  regdPin: string | null;
 
-  @Column({ type: "number", precision: 10, scale: 0, nullable: true })
-  tferfk?: number; // TFERFK NUMBER(10)
+  @Column("varchar2", { name: "regdState", nullable: true, length: 20 })
+  regdState: string | null;
 
-  @Column({ type: "number", precision: 10, scale: 0, nullable: true })
-  cferfk?: number; // CFERFK NUMBER(10)
+  @Column("varchar2", { name: "regdCity", nullable: true, length: 20 })
+  regdCity: string | null;
 
-  @Column({ type: "number", precision: 10, scale: 0, nullable: true })
-  downfk?: number; // DOWNFK NUMBER(10)
+  @Column("varchar2", { name: "regdAdd", nullable: true, length: 100 })
+  regdAdd: string | null;
 
-  @Column({ type: "char", length: 1, nullable: true })
-  prodErp?: string; // PROD_ERP CHAR(1)
+  @Column("varchar2", { name: "name", nullable: true, length: 50 })
+  name: string | null;
 
-  @Column({ type: "number", precision: 12, scale: 0, nullable: true })
-  mobileNo?: number; // MOBILE_NO NUMBER(12)
+  @PrimaryGeneratedColumn({ type: "number", name: "companypk" })
+  companypk: number;
+
+  @OneToMany(() => Branch, (branch) => branch.companyfk)
+  branches: Branch[];
 }
