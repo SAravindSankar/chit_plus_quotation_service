@@ -7,6 +7,7 @@ import {
 import logger from "../utils/Logger";
 import { LogMethodEntryExit } from "../utils/LoggingDecorator";
 import ErrorHandler from "../utils/ErrorHandler";
+import bcrypt from "bcrypt"; // Use bcrypt for password handling
 
 class OrganisationController {
   @LogMethodEntryExit()
@@ -65,9 +66,8 @@ class OrganisationController {
         return ErrorHandler.handleBadRequest(res, "Password is required");
       }
 
-      const deCodedPassword: string = atob(password);
       const user = await fetchUser(companyId, userName);
-      if (user && user.password === deCodedPassword) {
+      if (user && (await bcrypt.compare(password, user.password))) {
         res.status(200).json({ message: "Login Success" });
       } else if (user) {
         res.status(401).json({ error: "Invalid Password" });
