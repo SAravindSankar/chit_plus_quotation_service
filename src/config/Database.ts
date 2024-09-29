@@ -16,7 +16,7 @@ import { Company } from "../entities/Company";
 import properties from "../config/Properties";
 import oracledb from "oracledb";
 
-dotenv.config();
+//dotenv.config();
 
 // Set the Oracle Client library path
 oracledb.initOracleClient({

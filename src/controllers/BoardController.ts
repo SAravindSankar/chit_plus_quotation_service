@@ -13,29 +13,27 @@ export const boardRates = async (req: Request, res: Response) => {
     if (branchId) {
       const result = await getBoardRates(Number(branchId));
       if (result) {
-        console.log("cont--result---", result);
+        res.status(200).json(result);
       } else {
-        res.status(500).json({ error: "No board rates available" });
+        res.status(404).json({ error: "No board rates available" });
       }
-      res.json(result);
     } else {
-      res.status(500).json({ error: "branchId missing in request" });
+      res.status(400).json({ error: "branchId missing in request" });
     }
   } catch (error) {
-    logger.error("Error fetching boardRates:" + error);
-    // console.error("Error fetching boardRates:", error);
+    logger.error(`Error fetching boardRates: ${error}`);
     res.status(500).json({ message: "Error fetching boardRates" });
   }
 };
 
 export const employeeName = async (req: Request, res: Response) => {
-  const searchText = req?.query?.q as string;
-  const companyId = req?.query?.companyId as string;
-  const result = await getEmpName(Number(companyId), searchText);
-  console.log("res--", result);
-  // const namesArray: string[] = [];
-  // result.forEach((e) => {
-  //   namesArray.push(e.name);
-  // });
-  res.status(200).send(result);
+  try {
+    const searchText = req?.query?.q as string;
+    const companyId = req?.query?.companyId as string;
+    const result = await getEmpName(Number(companyId), searchText);
+    res.status(200).json(result);
+  } catch (error) {
+    logger.error(`Error fetching employee names: ${error}`);
+    res.status(500).json({ message: "Error fetching employee names" });
+  }
 };

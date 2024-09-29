@@ -15,17 +15,15 @@ export const productDetails = async (req: Request, res: Response) => {
     if (companyId && model) {
       const result = await getProductDetails(Number(companyId), model);
       if (result) {
-        console.log("cont--result---", result);
+        res.status(200).json(result);
       } else {
-        res.status(500).json({ error: "No board rates available" });
+        res.status(404).json({ error: "No product details available" });
       }
-      res.json(result);
     } else {
-      res.status(500).json({ error: "branchId or model missing in request" });
+      res.status(400).json({ error: "companyId or model missing in request" });
     }
   } catch (error) {
-    logger.error("Error fetching boardRates:" + error);
-    // console.error("Error fetching boardRates:", error);
-    res.status(500).json({ message: "Error fetching boardRates" });
+    logger.error(`Error fetching product details: ${error}`);
+    res.status(500).json({ message: "Error fetching product details" });
   }
 };
