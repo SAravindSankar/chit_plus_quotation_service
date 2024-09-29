@@ -57,7 +57,9 @@ export const userLogin = async (req: Request, res: Response) => {
   const user = await fetchUser(companyId, userName);
   console.log("user--", user);
   if (user && user.password === deCodedPassword) {
-    res.status(200).json({ message: "Login Success" });
+    res
+      .status(200)
+      .json({ message: "Login Success", empCode: user.tarsuserspk });
   } else if (user) {
     res.status(500).json({ error: "Invalid Password" });
   } else {
