@@ -9,7 +9,7 @@ import { LogMethodEntryExit } from "../utils/LoggingDecorator";
 
 class OrganisationController {
   @LogMethodEntryExit()
-  public static async getBranches(req: Request, res: Response) {
+  public async getBranches(req: Request, res: Response) {
     try {
       const branchName: string = (req?.query?.branch as string) || "";
       const result = await getAllBranches(branchName);
@@ -26,7 +26,7 @@ class OrganisationController {
   }
 
   @LogMethodEntryExit()
-  public static async getCounters(req: Request, res: Response) {
+  public async getCounters(req: Request, res: Response) {
     try {
       const companyId = req?.query?.companyId as string;
       const branchId = req?.query?.branchId as string;
@@ -54,7 +54,7 @@ class OrganisationController {
   }
 
   @LogMethodEntryExit()
-  public static async userLogin(req: Request, res: Response) {
+  public async userLogin(req: Request, res: Response) {
     const companyId = req?.body?.companyId as number;
     const userName = req?.body?.userName as string;
     const password = req?.body?.password as string;
@@ -71,4 +71,4 @@ class OrganisationController {
   }
 }
 
-export default OrganisationController;
+export default new OrganisationController();

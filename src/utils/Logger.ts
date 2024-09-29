@@ -7,7 +7,7 @@ import moment from "moment-timezone"; // Import moment-timezone
 import properties from "../config/Properties";
 
 // Load environment variables from .env file
-dotenv.config();
+//dotenv.config();
 
 // Define the base log directory from environment variable
 const baseDir = properties.BASE_DIR || path.resolve(__dirname);
