@@ -3,7 +3,12 @@ import { DataSource } from "typeorm";
 import { Branch } from "../entities/Branch";
 import { Company } from "../entities/Company";
 import properties from "../config/Properties";
-//dotenv.config();
+import oracledb from "oracledb";
+
+// Set the Oracle Client library path
+oracledb.initOracleClient({
+  libDir: properties.ORCL_INSTANT_CLIENT_HOME,
+});
 
 export const AppDataSource = new DataSource({
   type: "oracle",

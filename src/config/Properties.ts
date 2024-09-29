@@ -12,6 +12,7 @@ interface Properties {
   DB_SID: string;
   BASE_DIR: string;
   JWT_SECRET?: string;
+  ORCL_INSTANT_CLIENT_HOME?: string;
 }
 
 // Get the BASE_DIR from command-line arguments
@@ -61,6 +62,10 @@ const properties: Properties = {
   DB_PASSWORD: getStringProperty("DB_PASSWORD", "Chitplus123#"),
   DB_SID: getStringProperty("DB_SID", "CHITPLUS"),
   JWT_SECRET: getStringProperty("JWT_SECRET", "CHIT_PLUS"),
+  ORCL_INSTANT_CLIENT_HOME: getStringProperty(
+    "ORCL_INSTANT_CLIENT_HOME",
+    "D:\\Work\\Softwares\\Oracle19cHOME\\instantclient_19_24"
+  ),
   BASE_DIR: BASE_DIR,
 };
 
