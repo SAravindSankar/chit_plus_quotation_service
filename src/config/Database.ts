@@ -11,14 +11,6 @@ import * as ts from "typescript";
 import { MasCompany } from "../entities/MasCompany";
 import { MasBranch } from "../entities/MasBranch";
 import { MasCounter } from "../entities/MasCounter";
-import properties from "../config/Properties";
-import oracledb from "oracledb";
-
-// Set the Oracle Client library path
-oracledb.initOracleClient({
-  libDir: properties.ORCL_INSTANT_CLIENT_HOME,
-});
-
 dotenv.config();
 
 const entitiesPath = join(__dirname, "../entities"); // Adjust path based on entities location
@@ -62,11 +54,11 @@ export const Database = async () => {
   console.log("entities--", entities);
   const dataSource = new DataSource({
     type: "oracle",
-    host: properties.DB_HOST,
-    port: Number(properties.DB_PORT),
-    username: properties.DB_USERNAME,
-    password: properties.DB_PASSWORD,
-    sid: properties.DB_SID,
+    host: process.env.DB_HOST,
+    port: Number(process.env.DB_PORT),
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    sid: process.env.DB_SID,
     synchronize: false,
     logging: true,
     entities: ["TAR_USERS", ...entities],
