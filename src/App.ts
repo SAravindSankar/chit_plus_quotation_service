@@ -8,6 +8,7 @@ import { setupMorganMiddleware } from "./middlewares/MorganLoggerMiddleware"; //
 import { responseBodyCapture } from "./middlewares/ResponseBodyCaptureMiddleware"; // Import response body capture middleware
 import { jwtAuthorization } from "./middlewares/JwtAuthorizationMiddleware"; // Import JWT authorization middleware
 import ErrorMiddleware from "./middlewares/ErrorMiddleware"; // Import JWT authorization middleware
+import { limiter } from "./middlewares/RateLimitMiddleware";
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ app.use(responseBodyCapture);
 
 // Setup Morgan middleware
 setupMorganMiddleware(app);
+app.use(limiter);
 
 // Use JWT authorization middleware for protected routes
 app.use("/api", jwtAuthorization, OrganisationRoutes);
