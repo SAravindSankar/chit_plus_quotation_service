@@ -1,7 +1,7 @@
 import cors, { CorsOptions } from "cors";
 import os from "os";
 import createError from "http-errors";
-import properties from "../config/Properties"; // Import the properties configuration
+import properties from "../config/Properties";
 
 // Function to get the server's IP address
 const getServerIp = (): string | undefined => {
@@ -24,17 +24,14 @@ const corsOptions: CorsOptions = {
     origin: string | undefined,
     callback: (err: Error | null, allow?: boolean) => void
   ) => {
-    console.log("origin--", origin);
-    console.log("serverIp--", serverIp);
-    console.log("serverHostname--", serverHostname);
-    const allowedOriginIp = `http://${serverIp}`;
-    const allowedOriginHostname = `http://${serverHostname}`;
-    const allowedLocalhost = `http://localhost:3000`;
+    const allowedOrigins = [
+      `http://${serverIp}`,
+      `http://${serverHostname}`,
+      `http://localhost:3000`,
+    ];
 
     if (
-      origin === allowedOriginIp ||
-      origin === allowedOriginHostname ||
-      origin === allowedLocalhost ||
+      allowedOrigins.includes(origin || "") ||
       (origin === undefined && properties.ENVIRONMENT === "development") // Use the ENVIRONMENT from properties
     ) {
       callback(null, true);
