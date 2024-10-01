@@ -13,6 +13,7 @@ interface Properties {
   BASE_DIR: string;
   JWT_SECRET?: string;
   ORCL_INSTANT_CLIENT_HOME?: string;
+  ENVIRONMENT?: string; // Add ENVIRONMENT to the interface
 }
 
 // Get the BASE_DIR from command-line arguments
@@ -67,6 +68,7 @@ const properties: Properties = {
     "D:\\Work\\Softwares\\Oracle19cHOME\\instantclient_19_24"
   ),
   BASE_DIR: BASE_DIR,
+  ENVIRONMENT: getStringProperty("ENVIRONMENT", "development"), // Add ENVIRONMENT extraction
 };
 
 export default properties;

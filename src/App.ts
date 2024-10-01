@@ -1,6 +1,5 @@
-import express, { Request, Response, NextFunction } from "express";
+import express from "express";
 import dotenv from "dotenv";
-// import { validationMiddleware } from './middlewares/ValidationMiddleware';
 import OrganisationRoutes from "./routes/OrganisationRoutes";
 import BoardRoutes from "./routes/BoardRoutes";
 import ProductRoutes from "./routes/ProductRoutes";
@@ -11,11 +10,15 @@ import ErrorMiddleware from "./middlewares/ErrorMiddleware";
 import { limiter } from "./middlewares/RateLimitMiddleware";
 import { compressionMiddleware } from "./middlewares/CompressionMiddleware";
 import { setupSwagger } from "./config/SwaggerConfig";
+import { corsMiddleware } from "./middlewares/CorsMiddleware";
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
+
+// Use CORS middleware
+app.use(corsMiddleware);
 
 // Use response body capture middleware
 app.use(responseBodyCapture);
@@ -37,7 +40,6 @@ app.use("/api/board", BoardRoutes);
 app.use("/api/product", ProductRoutes);
 
 // app.post('/users', validationMiddleware(User), createUserController);
-
 app.use(ErrorMiddleware);
 
 export default app;
