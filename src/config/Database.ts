@@ -8,15 +8,10 @@ import * as fs from "fs";
 import * as path from "path";
 import * as ts from "typescript";
 
-import { MasCompany } from "../entities/MasCompany";
-import { MasBranch } from "../entities/MasBranch";
-import { MasCounter } from "../entities/MasCounter";
 import { Branch } from "../entities/Branch";
 import { Company } from "../entities/Company";
 import properties from "../config/Properties";
 import oracledb from "oracledb";
-
-//dotenv.config();
 
 // Set the Oracle Client library path
 oracledb.initOracleClient({
@@ -62,6 +57,11 @@ export const Database = async () => {
   const entities = await loadEntities();
 
   console.log("entities--", entities);
+  // console.log("pp=", properties.DB_HOST);
+  // console.log("pp=", properties.DB_PORT);
+  // console.log("pp=", properties.DB_USERNAME);
+  // console.log("pp=", properties.DB_PASSWORD);
+  // console.log("pp=", properties.DB_SID);
   const dataSource = new DataSource({
     type: "oracle",
     host: properties.DB_HOST,
@@ -71,7 +71,7 @@ export const Database = async () => {
     sid: properties.DB_SID,
     synchronize: false,
     logging: true,
-    entities: [Branch, Company],
+    entities: ["TAR_USERS", ...entities],
     migrations: [],
     subscribers: [],
   });
