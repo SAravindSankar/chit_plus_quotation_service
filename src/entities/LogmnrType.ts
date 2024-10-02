@@ -85,6 +85,6 @@ export class LogmnrType {
   @Column("varchar2", { name: "VERSION", nullable: true, length: 384 })
   version: string | null;
 
-  @Column("number", { name: "VERSION#", nullable: true })
-  version: number | null;
+  // @Column("number", { name: "VERSION#", nullable: true })
+  // version: number | null;
 }

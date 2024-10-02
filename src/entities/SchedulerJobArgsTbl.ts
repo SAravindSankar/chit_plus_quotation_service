@@ -23,6 +23,6 @@ export class SchedulerJobArgsTbl {
   @Column("varchar2", { name: "OWNER", nullable: true, length: 128 })
   owner: string | null;
 
-  @Column("anydata", { name: "ANYDATA_VALUE", nullable: true })
-  anydataValue: NonNullable<unknown> | null;
+  // @Column("anydata", { name: "ANYDATA_VALUE", nullable: true })
+  // anydataValue: NonNullable<unknown> | null;
 }

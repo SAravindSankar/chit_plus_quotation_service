@@ -1,21 +1,23 @@
-// import path from 'path';
 const path = require("path");
 const nodeExternals = require("webpack-node-externals");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
 module.exports = {
-  entry: "./src/server.ts", // Your entry file
-  target: "node", // Target Node.js, not a browser
+  entry: "./src/server.ts",
+  target: "node",
   output: {
-    filename: "bundle.js", // Output bundle file
+    filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
   },
   resolve: {
-    extensions: [".ts", ".js"], // Resolve .ts and .js files
+    extensions: [".ts", ".js"],
+    plugins: [new TsconfigPathsPlugin()], // Ensure path aliases are resolved
   },
   module: {
     rules: [
       {
-        test: /\.ts$/, // Compile TypeScript files
+        test: /\.ts$/,
         use: "ts-loader",
         exclude: /node_modules/,
       },
@@ -23,7 +25,11 @@ module.exports = {
   },
   externals: [nodeExternals()],
   optimization: {
-    minimize: true, // Minify the output bundle
+    minimize: true,
   },
-  mode: "production", // Set the mode to production
+  mode: "production",
+  // devtool: "source-map", // Optional: For debugging and error tracing
+  plugins: [
+    new CleanWebpackPlugin(), // Cleans the output folder before each build
+  ],
 };
