@@ -30,6 +30,6 @@ export class SchedulerProgramArgsTbl {
   @Column("varchar2", { name: "OWNER", length: 128 })
   owner: string;
 
-  @Column("anydata", { name: "DEFAULT_ANYDATA_VALUE", nullable: true })
-  defaultAnydataValue: NonNullable<unknown> | null;
+  // @Column("anydata", { name: "DEFAULT_ANYDATA_VALUE", nullable: true })
+  // defaultAnydataValue: NonNullable<unknown> | null;
 }
