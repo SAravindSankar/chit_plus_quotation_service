@@ -17,10 +17,12 @@ import oracledb from "oracledb";
 oracledb.initOracleClient({
   libDir: properties.ORCL_INSTANT_CLIENT_HOME,
 });
+let entitiesPath = join(__dirname, "entities"); // Adjust path based on entities location
 
-const entitiesPath = join(__dirname, "../entities"); // Adjust path based on entities location
+if (properties.ENVIRONMENT === "production") {
+  const entitiesPath = join(__dirname, "../entities"); // Adjust path based on entities location
+}
 
-// console.log("path--", entitiesPath);
 const entityFiles = glob.sync(`${entitiesPath}/*.ts`);
 // console.log("entityFiles--", entityFiles);
 
