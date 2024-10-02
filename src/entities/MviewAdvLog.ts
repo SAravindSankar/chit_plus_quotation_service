@@ -58,17 +58,17 @@ export class MviewAdvLog {
   )
   mviewAdvEligibles: MviewAdvEligible[];
 
-  @OneToMany(
-    () => MviewAdvExceptions,
-    (mviewAdvExceptions) => mviewAdvExceptions.runid
-  )
-  mviewAdvExceptions: MviewAdvExceptions[];
+  // @OneToMany(
+  //   () => MviewAdvExceptions,
+  //   (mviewAdvExceptions) => mviewAdvExceptions.runid
+  // )
+  // mviewAdvExceptions: MviewAdvExceptions[];
 
-  @OneToMany(
-    () => MviewAdvFilterinstance,
-    (mviewAdvFilterinstance) => mviewAdvFilterinstance.runid
-  )
-  mviewAdvFilterinstances: MviewAdvFilterinstance[];
+  // @OneToMany(
+  //   () => MviewAdvFilterinstance,
+  //   (mviewAdvFilterinstance) => mviewAdvFilterinstance.runid
+  // )
+  // mviewAdvFilterinstances: MviewAdvFilterinstance[];
 
   @OneToMany(() => MviewAdvInfo, (mviewAdvInfo) => mviewAdvInfo.runid_2)
   mviewAdvInfos: MviewAdvInfo[];

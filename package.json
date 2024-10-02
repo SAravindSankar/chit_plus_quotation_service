@@ -6,8 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-ts": "tsc",
-    "build": "webpack",
-    "start:prod": "cross-env BASE_DIR=$BASE_DIR node dist/bundle.js",
+    "build-entity": "tsc --project tsconfig.entity.json",
+    "build-webpack": "webpack",
+    "build": "npm run build-webpack && npm run build-entity",
+    "start-prod": "cross-env BASE_DIR=$BASE_DIR node dist/bundle.js",
     "start": "cross-env BASE_DIR=$BASE_DIR node dist/server.js",
     "dev": "cross-env BASE_DIR=$BASE_DIR tsx watch src/server.ts"
   },
@@ -18,6 +20,7 @@
     "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
+    "clean-webpack-plugin": "^4.0.0",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
@@ -34,6 +37,7 @@
     "reflect-metadata": "^0.2.2",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
+    "tsconfig-paths-webpack-plugin": "^4.1.0",
     "typeorm": "^0.3.20",
     "winston": "^3.14.2",
     "winston-daily-rotate-file": "^5.0.0"

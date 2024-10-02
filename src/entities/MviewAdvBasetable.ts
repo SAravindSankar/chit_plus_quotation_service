@@ -19,10 +19,10 @@ export class MviewAdvBasetable {
   @Column("number", { name: "COLLECTIONID#" })
   collectionid: number;
 
-  @ManyToOne(
-    () => MviewAdvWorkload,
-    (mviewAdvWorkload) => mviewAdvWorkload.mviewAdvBasetables
-  )
-  @JoinColumn([{ name: "QUERYID#", referencedColumnName: "queryid" }])
-  queryid_2: MviewAdvWorkload;
+  // @ManyToOne(
+  //   () => MviewAdvWorkload,
+  //   (mviewAdvWorkload) => mviewAdvWorkload.mviewAdvBasetables
+  // )
+  // @JoinColumn([{ name: "QUERYID#", referencedColumnName: "queryid" }])
+  // queryid_2: MviewAdvWorkload;
 }

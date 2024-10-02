@@ -8,8 +8,6 @@ import * as fs from "fs";
 import * as path from "path";
 import * as ts from "typescript";
 
-import { Branch } from "../entities/Branch";
-import { Company } from "../entities/Company";
 import properties from "../config/Properties";
 import oracledb from "oracledb";
 
@@ -17,10 +15,10 @@ import oracledb from "oracledb";
 oracledb.initOracleClient({
   libDir: properties.ORCL_INSTANT_CLIENT_HOME,
 });
-let entitiesPath = join(__dirname, "entities"); // Adjust path based on entities location
+let entitiesPath = join(__dirname, "../entities"); // Adjust path based on entities location
 
 if (properties.ENVIRONMENT === "production") {
-  const entitiesPath = join(__dirname, "../entities"); // Adjust path based on entities location
+  entitiesPath = join(__dirname, "entities"); // Adjust path based on entities location
 }
 
 const entityFiles = glob.sync(`${entitiesPath}/*.ts`);

@@ -50,9 +50,9 @@ export class MviewAdvWorkload {
   @Column("long", { name: "SQL_TEXT" })
   sqlText: string;
 
-  @OneToMany(
-    () => MviewAdvBasetable,
-    (mviewAdvBasetable) => mviewAdvBasetable.queryid_2
-  )
-  mviewAdvBasetables: MviewAdvBasetable[];
+  // @OneToMany(
+  //   () => MviewAdvBasetable,
+  //   (mviewAdvBasetable) => mviewAdvBasetable.queryid_2
+  // )
+  // mviewAdvBasetables: MviewAdvBasetable[];
 }

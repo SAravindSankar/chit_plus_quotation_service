@@ -27,10 +27,10 @@ export class MviewAdvFilterinstance {
   @Column("number", { name: "FILTERID#", nullable: true })
   filterid: number | null;
 
-  @ManyToOne(
-    () => MviewAdvLog,
-    (mviewAdvLog) => mviewAdvLog.mviewAdvFilterinstances
-  )
-  @JoinColumn([{ name: "RUNID#", referencedColumnName: "runid" }])
-  runid: MviewAdvLog;
+  // @ManyToOne(
+  //   () => MviewAdvLog,
+  //   (mviewAdvLog) => mviewAdvLog.mviewAdvFilterinstances
+  // )
+  // @JoinColumn([{ name: "RUNID#", referencedColumnName: "runid" }])
+  // runid: MviewAdvLog;
 }

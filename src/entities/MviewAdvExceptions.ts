@@ -18,7 +18,7 @@ export class MviewAdvExceptions {
   @Column("varchar2", { name: "OWNER", nullable: true, length: 128 })
   owner: string | null;
 
-  @ManyToOne(() => MviewAdvLog, (mviewAdvLog) => mviewAdvLog.mviewAdvExceptions)
-  @JoinColumn([{ name: "RUNID#", referencedColumnName: "runid" }])
-  runid: MviewAdvLog;
+  // @ManyToOne(() => MviewAdvLog, (mviewAdvLog) => mviewAdvLog.mviewAdvExceptions)
+  // @JoinColumn([{ name: "RUNID#", referencedColumnName: "runid" }])
+  // runid: MviewAdvLog;
 }
