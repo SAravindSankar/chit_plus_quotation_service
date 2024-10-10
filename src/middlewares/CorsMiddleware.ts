@@ -32,7 +32,9 @@ const corsOptions: CorsOptions = {
 
     if (
       allowedOrigins.includes(origin || "") ||
-      (origin === undefined && properties.ENVIRONMENT === "development") // Use the ENVIRONMENT from properties
+      (origin === undefined &&
+        (properties.ENVIRONMENT === "development" ||
+          properties.ENVIRONMENT === "DIT")) // Use the ENVIRONMENT from properties
     ) {
       callback(null, true);
     } else {
