@@ -15,7 +15,10 @@ import oracledb from "oracledb";
 
 let entitiesPath = join(__dirname, "../entities"); // Adjust path based on entities location
 
-if (properties.ENVIRONMENT === "production") {
+if (
+  properties.ENVIRONMENT === "production" ||
+  properties.ENVIRONMENT === "DIT"
+) {
   entitiesPath = join(__dirname, "entities"); // Adjust path based on entities location
 }
 
