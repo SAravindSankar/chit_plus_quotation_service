@@ -8,10 +8,12 @@ import * as path from "path";
 import properties from "../config/Properties";
 import oracledb from "oracledb";
 
-// Set the Oracle Client library path
-//oracledb.initOracleClient({
-// libDir: properties.ORCL_INSTANT_CLIENT_HOME,
-//});
+if (properties.ENVIRONMENT === "production") {
+  // Set the Oracle Client library path
+  oracledb.initOracleClient({
+    libDir: properties.ORCL_INSTANT_CLIENT_HOME,
+  });
+}
 
 let entitiesPath = join(__dirname, "../entities"); // Adjust path based on entities location
 
