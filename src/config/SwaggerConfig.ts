@@ -1,8 +1,7 @@
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import { Express } from "express";
-import path from "path";
-import properties from "../config/Properties";
+import properties from "../config/Properties"; // Import your properties configuration
 
 const options = {
   definition: {
@@ -27,20 +26,13 @@ const options = {
       },
     ],
   },
-  apis:
-    properties.ENVIRONMENT !== "development"
-      ? [
-          path.join(__dirname, "../routes/*.js"),
-          path.join(__dirname, "../controllers/*.js"),
-        ]
-      : [
-          path.join(__dirname, "../src/routes/*.ts"),
-          path.join(__dirname, "../src/controllers/*.ts"),
-        ],
+  apis: ["./src/routes/*.ts", "./src/controllers/*.ts"], // Path to the API docs
 };
 
 const swaggerSpec = swaggerJsdoc(options);
 
 export const setupSwagger = (app: Express) => {
-  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+  if (properties.ENVIRONMENT !== "production") {
+    app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+  }
 };
