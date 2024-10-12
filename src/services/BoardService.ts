@@ -25,23 +25,30 @@ export const getBoardRates = async (branchId: number) => {
   return result;
 };
 
-export const getEmpName = async (companyId: number, searchText: string) => {
+export const getEmpName = async (
+  companyId: number,
+  searchText: string | null
+) => {
   const empRepository = await AppDataSource.getRepository(MasEmp);
 
-  const result = await empRepository
+  const query = empRepository
     .createQueryBuilder("e")
     .select(["e.name", "e.code"])
     .where("e.delflag IS NULL")
-    .andWhere("e.companyfk = :companyId", { companyId })
-    .andWhere(
+    .andWhere("e.companyfk = :companyId", { companyId });
+
+  if (searchText) {
+    query.andWhere(
       new Brackets((qb) => {
         qb.where("UPPER(e.code) LIKE :code", {
-          code: `${searchText}%`,
+          code: `${searchText.toUpperCase()}%`,
         }).orWhere("UPPER(e.name) LIKE :name", {
           name: `${searchText.toUpperCase()}%`,
         });
       })
-    )
-    .getMany();
+    );
+  }
+
+  const result = await query.getMany();
   return result;
 };
