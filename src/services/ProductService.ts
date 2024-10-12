@@ -36,7 +36,7 @@ export const getProductDetails = async (companyId: number, model: string) => {
       { companyFk4: companyId }
     )
     .orderBy("P.MODEL_NO", "ASC")
-    .getMany();
+    .getRawMany();
   return result;
 };
 
