@@ -67,7 +67,7 @@ class OrganisationController {
       }
 
       const user = await fetchUser(companyId, userName);
-      if (user && (await bcrypt.compare(password, user.password))) {
+      if (user && (await bcrypt.compare(user.password, password))) {
         res.status(200).json({ message: "Login Success" });
       } else if (user) {
         res.status(401).json({ error: "Invalid Password" });
