@@ -120,13 +120,15 @@ export const getModelNumber = async (branchId: string, searchText: string) => {
   const tagId = searchText.slice(0, 4); // First 4 characters
   const tagNumber = searchText.slice(4);
 
+  console.log(tagId, "Tag No", tagNumber);
+
   const result = await AppDataSource.manager
     .createQueryBuilder(JlotDet1, "d")
     .select("d.PRODFK", "prodfk") // Selecting the `PRODFK` column
     .innerJoin(JmasProduct, "p", "p.PRODPK = d.PRODFK") // Joining with `JMAS_PRODUCT`
     .where("d.DELFLAG IS NULL") // Condition for `delflag`
     .andWhere("d.ALTTAGFK = :alttagfk", { alttagfk: tagId }) // Condition for `alttagfk`
-    .andWhere("UPPER(d.PROD_TAGNO) = :prodTagno", {
+    .andWhere("TRIM(UPPER(d.PROD_TAGNO)) = :prodTagno", {
       prodTagno: tagNumber.toUpperCase(),
     }) // Case-insensitive match for `prod_tagno`
     .andWhere("d.BRANCHFK IN (:...branchfk)", { branchfk: [branchId] }) // Condition for `branchfk`
