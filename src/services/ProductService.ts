@@ -3,6 +3,7 @@ import { JmasProduct } from "../entities/JmasProduct";
 import { AltTree1 } from "../entities/AltTree1";
 import { JlotDet1 } from "../entities/JlotDet1";
 import { JlotDet11 } from "../entities/JlotDet11";
+import { JlotDet12 } from "../entities/JlotDet12";
 
 export const getProductDetails = async (companyId: number, model: string) => {
   const productRepository = AppDataSource.getRepository(JmasProduct);
@@ -220,6 +221,43 @@ export const getStoneDetailsByTag = async (tagId: string) => {
       rate: e.RATE,
       amount: e.AMOUNT,
       lotDet11pk: e.LOT_DET11PK,
+    };
+  });
+
+  return mappedResult;
+};
+
+export const getProductOtherCharges = async (tagId: string) => {
+  const result = await AppDataSource.getRepository(JlotDet12)
+    .createQueryBuilder("jd")
+    .select([
+      "NVL(jd.ADD_LESS, 'A') AS ADD_LESS",
+      "NVL(jd.TYPE_DESC, ' ') AS TYPE_DESC",
+      "NVL(jd.TYPE_PER, 0) AS PER",
+      "NVL(jd.TYPE_AMT, 0) AS AMOUNT",
+      "NVL(jd.TYPE_RATE, 0) AS NONRATE",
+      "NVL(jd.ADD_RATE_PER, 0) AS ADDRATEPER",
+      "NVL(jd.ADD_RATE_AMT, 0) AS ADDRATEAMT",
+      "NVL(jd.ONWHICH, 0) AS ONWHICH",
+      "NVL(jd.HUIDNO, ' ') AS HUIDNO",
+    ])
+    .where("jd.delflag IS NULL")
+    .andWhere('"jd".lot_det1fk = :tagId', { tagId })
+    .getRawMany();
+  console.log("result--", result);
+  // return result;
+
+  const mappedResult = result.map((e: any) => {
+    return {
+      addLess: e.ADD_LESS,
+      typeDesc: e.TYPE_DESC,
+      per: e.PER,
+      amount: e.AMOUNT,
+      nonrate: e.NONRATE,
+      addRatePer: e.ADDRATEPER,
+      addRateAmt: e.ADDRATEAMT,
+      onWhich: e.ONWHICH,
+      huidno: e.HUIDNO,
     };
   });
 

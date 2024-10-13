@@ -4,6 +4,7 @@ import {
   getDetailsByTag,
   getModelNumber,
   getProductDetails,
+  getProductOtherCharges,
   getProductsList,
   getStoneDetailsByTag,
   getTagNumbers,
@@ -154,5 +155,26 @@ export const stoneDetails = async (req: Request, res: Response) => {
     logger.error("Error fetching modelNumber:" + error);
     console.error("Error fetching boardRates:", error);
     res.status(500).json({ message: "Error fetching modelNumber" });
+  }
+};
+
+export const productOtherCharges = async (req: Request, res: Response) => {
+  try {
+    const tagId: string = req?.query?.tagId as string;
+    if (tagId) {
+      const result = await getProductOtherCharges(tagId);
+      if (result) {
+        console.log("cont--result---", result);
+      } else {
+        res.status(500).json({ error: "RESULTS not available" });
+      }
+      res.json(result);
+    } else {
+      res.status(500).json({ error: "tagId not available" });
+    }
+  } catch (error) {
+    logger.error("Error fetching productOtherCharges:" + error);
+    console.error("Error fetching productOtherCharges:", error);
+    res.status(500).json({ message: "Error fetching productOtherCharges" });
   }
 };
