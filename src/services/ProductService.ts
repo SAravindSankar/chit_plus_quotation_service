@@ -4,6 +4,7 @@ import { AltTree1 } from "../entities/AltTree1";
 import { JlotDet1 } from "../entities/JlotDet1";
 import { JlotDet11 } from "../entities/JlotDet11";
 import { JlotDet12 } from "../entities/JlotDet12";
+import { JmasCharges } from "../entities/JmasCharges";
 
 export const getProductDetails = async (companyId: number, model: string) => {
   const productRepository = AppDataSource.getRepository(JmasProduct);
@@ -415,6 +416,30 @@ export const getStoneList = async (
       productPk: e.PRODPK,
     };
   });
+
+  return mappedResult;
+};
+
+export const getOtherChargesList = async (
+  companyId: number,
+  chargeName: string
+) => {
+  const upperChargeName = chargeName ? chargeName.toUpperCase() : "";
+
+  const result = await AppDataSource.getRepository(JmasCharges)
+    .createQueryBuilder("JC")
+    .select(["JC.CHRGPK AS CHRGPK", "JC.CHARGES AS CHARGES"])
+    .where("JC.DELFLAG IS NULL")
+    .andWhere("UPPER(JC.CHARGES) LIKE :chargeName", {
+      chargeName: `${upperChargeName}%`,
+    })
+    .andWhere("JC.COMPANYFK = :companyId", { companyId })
+    .getRawMany();
+
+  const mappedResult = result.map((e: any) => ({
+    chargePk: e.CHRGPK,
+    charges: e.CHARGES,
+  }));
 
   return mappedResult;
 };

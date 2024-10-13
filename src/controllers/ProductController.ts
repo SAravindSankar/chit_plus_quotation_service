@@ -11,6 +11,7 @@ import {
   getTaxCharges,
   getOtherCharges,
   getStoneList,
+  getOtherChargesList,
 } from "../services/ProductService";
 import ErrorHandler from "../utils/ErrorHandler";
 
@@ -256,5 +257,29 @@ export const stoneList = async (req: Request, res: Response) => {
     }
   } catch (error) {
     ErrorHandler.handleError(res, error, "Error fetching stone list");
+  }
+};
+
+export const otherChargesList = async (req: Request, res: Response) => {
+  try {
+    const companyId: string = req?.query?.companyId as string;
+    const chargeName: string = req?.query?.chargeName as string;
+
+    if (!companyId) {
+      return ErrorHandler.handleBadRequest(res, "CompanyId is required");
+    }
+
+    if (!chargeName) {
+      return ErrorHandler.handleBadRequest(res, "Charge name is required");
+    }
+
+    const result = await getOtherChargesList(Number(companyId), chargeName);
+    if (result) {
+      res.status(200).json(result);
+    } else {
+      ErrorHandler.handleNotFound(res, "No other charges list available");
+    }
+  } catch (error) {
+    ErrorHandler.handleError(res, error, "Error fetching other charges list");
   }
 };
