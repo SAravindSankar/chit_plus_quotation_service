@@ -23,7 +23,7 @@ export const boardRates = async (req: Request, res: Response) => {
 
 export const employeeName = async (req: Request, res: Response) => {
   try {
-    const searchText = req?.query?.q as string;
+    const searchText = req?.query?.searchText as string;
     const companyId = req?.query?.companyId as string;
 
     if (!companyId) {

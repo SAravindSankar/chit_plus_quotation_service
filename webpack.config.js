@@ -4,7 +4,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
 module.exports = {
-  entry: "./src/server.ts",
+  entry: "./src/Server.ts",
   target: "node",
   output: {
     filename: "bundle.js",

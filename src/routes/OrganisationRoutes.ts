@@ -29,7 +29,7 @@ const router = Router();
  *         name: branch
  *         schema:
  *           type: string
- *         description: The name of the branch to filter by
+ *         description: The name of the branch to filter by (ex 132)
  *     responses:
  *       200:
  *         description: A list of branches
@@ -66,18 +66,18 @@ router.get("/branches", OrganisationController.getBranches);
  *         schema:
  *           type: string
  *         required: true
- *         description: The ID of the company
+ *         description: The ID of the company (ex 32)
  *       - in: query
  *         name: branchId
  *         schema:
  *           type: string
  *         required: true
- *         description: The ID of the branch
+ *         description: The ID of the branch (ex 132)
  *       - in: query
  *         name: counter
  *         schema:
  *           type: string
- *         description: The counter name
+ *         description: The counter name (ex ACCOUNTS)
  *     responses:
  *       200:
  *         description: A list of counters
