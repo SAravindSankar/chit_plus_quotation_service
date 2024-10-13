@@ -362,3 +362,59 @@ export const getTaxCharges = async (
 
   return mappedResult;
 };
+
+export const getStoneList = async (
+  companyId: number,
+  stoneName: string,
+  name: string
+) => {
+  const upperStoneName = stoneName ? stoneName.toUpperCase() : "";
+  const upperName = name ? name.toUpperCase() : "";
+  const result = await AppDataSource.getRepository(JmasProduct)
+    .createQueryBuilder("JP")
+    .select([
+      "JP.MODEL_NO AS MODEL_NO",
+      "JP.DESCRIPTION AS DESCRIPTION",
+      "JP.PRODPK AS PRODPK",
+    ])
+    .where("UPPER(JP.MODEL_NO) LIKE :stoneName", {
+      stoneName: `${upperStoneName}%`,
+    })
+    .andWhere("JP.DELFLAG IS NULL")
+    .andWhere("JP.COMPANYFK = :companyId1", { companyId1: companyId })
+    .andWhere(
+      `JP.PRODCLASSPK NOT IN (
+        SELECT DISTINCT A.PRODCLASSPK
+        FROM JMAS_PRODUCT A, JMAS_PRODUCT B
+        WHERE
+          A.PRODCLASSPK = B.HPRODCLASSFK
+          AND A.DELFLAG IS NULL
+          AND A.COMPANYFK = :companyId2
+          AND B.DELFLAG IS NULL
+          AND A.PRODCLASSPK IN (
+            SELECT PRODCLASSPK
+            FROM JMAS_PRODUCT
+            WHERE
+              UPPER(NAME) LIKE :name1
+              AND DELFLAG IS NULL
+              AND COMPANYFK = :companyId3
+          )
+      )`,
+      { companyId2: companyId, companyId3: companyId, name1: `${upperName}%` }
+    )
+    .andWhere(
+      "(JP.STONE = 'Y' OR JP.SPARE = 'Y' OR JP.DIAMOND = 'Y' OR JP.PRECIOUS_STONE = 'Y')"
+    )
+    .orderBy("JP.MODEL_NO")
+    .getRawMany();
+
+  const mappedResult = result.map((e: any) => {
+    return {
+      modelNo: e.MODEL_NO,
+      description: e.DESCRIPTION,
+      productPk: e.PRODPK,
+    };
+  });
+
+  return mappedResult;
+};

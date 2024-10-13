@@ -9,6 +9,7 @@ import {
   productOtherCharges,
   otherCharges,
   taxCharges,
+  stoneList,
 } from "../controllers/ProductController";
 
 const router = Router();
@@ -22,5 +23,6 @@ router.get("/stoneDetails", stoneDetails);
 router.get("/other-charges", productOtherCharges);
 router.get("/otherCharges", otherCharges);
 router.get("/getTaxCharges", taxCharges);
+router.get("/stone/list", stoneList);
 
 export default router;

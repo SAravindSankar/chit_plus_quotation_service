@@ -10,6 +10,7 @@ import {
   getTagNumbers,
   getTaxCharges,
   getOtherCharges,
+  getStoneList,
 } from "../services/ProductService";
 import ErrorHandler from "../utils/ErrorHandler";
 
@@ -230,5 +231,30 @@ export const taxCharges = async (req: Request, res: Response) => {
     }
   } catch (error) {
     ErrorHandler.handleError(res, error, "Error fetching tax charges");
+  }
+};
+
+export const stoneList = async (req: Request, res: Response) => {
+  try {
+    const companyId: string = req?.query?.companyId as string;
+    const stoneName: string = req?.query?.stoneName as string;
+    const name: string = req?.query?.name as string;
+
+    if (!companyId) {
+      return ErrorHandler.handleBadRequest(res, "CompanyId is required");
+    }
+
+    if (!stoneName) {
+      return ErrorHandler.handleBadRequest(res, "Stone name is required");
+    }
+
+    const result = await getStoneList(Number(companyId), stoneName, name);
+    if (result) {
+      res.status(200).json(result);
+    } else {
+      ErrorHandler.handleNotFound(res, "No stone list available");
+    }
+  } catch (error) {
+    ErrorHandler.handleError(res, error, "Error fetching stone list");
   }
 };
