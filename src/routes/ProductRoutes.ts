@@ -7,6 +7,8 @@ import {
   detailsByTag,
   stoneDetails,
   productOtherCharges,
+  otherCharges,
+  taxCharges,
 } from "../controllers/ProductController";
 
 const router = Router();
@@ -18,5 +20,7 @@ router.get("/model-number", modelNumber);
 router.get("/details-by-tag", detailsByTag);
 router.get("/stoneDetails", stoneDetails);
 router.get("/other-charges", productOtherCharges);
+router.get("/otherCharges", otherCharges);
+router.get("/getTaxCharges", taxCharges);
 
 export default router;

@@ -8,6 +8,8 @@ import {
   getProductsList,
   getStoneDetailsByTag,
   getTagNumbers,
+  getTaxCharges,
+  getOtherCharges,
 } from "../services/ProductService";
 import ErrorHandler from "../utils/ErrorHandler";
 
@@ -180,5 +182,53 @@ export const productOtherCharges = async (req: Request, res: Response) => {
     logger.error("Error fetching productOtherCharges:" + error);
     console.error("Error fetching productOtherCharges:", error);
     res.status(500).json({ message: "Error fetching productOtherCharges" });
+  }
+};
+
+export const otherCharges = async (req: Request, res: Response) => {
+  try {
+    const tagId: string = req?.query?.tagId as string;
+
+    if (!tagId) {
+      return ErrorHandler.handleBadRequest(res, "TagId is required");
+    }
+
+    const result = await getOtherCharges(Number(tagId));
+    if (result) {
+      res.status(200).json(result);
+    } else {
+      ErrorHandler.handleNotFound(
+        res,
+        "No other charges available for the given tag"
+      );
+    }
+  } catch (error) {
+    ErrorHandler.handleError(res, error, "Error fetching other charges");
+  }
+};
+
+export const taxCharges = async (req: Request, res: Response) => {
+  try {
+    const companyId: string = req?.query?.companyId as string;
+    const taxPrimaryKey: string = req?.query?.taxPrimaryKey as string;
+
+    if (!companyId) {
+      return ErrorHandler.handleBadRequest(res, "CompanyId is required");
+    }
+
+    const result = await getTaxCharges(
+      Number(companyId),
+      taxPrimaryKey ? Number(taxPrimaryKey) : undefined
+    );
+    if (result) {
+      res.status(200).json(result);
+    } else {
+      ErrorHandler.handleNotFound(
+        res,
+        "No tax charges available for the given parameters"
+      );
+    }
+  } catch (error) {
+    ErrorHandler.handleError(res, error, "Error fetching tax charges");
   }
 };

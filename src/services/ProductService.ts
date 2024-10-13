@@ -265,3 +265,100 @@ export const getProductOtherCharges = async (tagId: string) => {
 
   return mappedResult;
 };
+
+export const getOtherCharges = async (tagId: number) => {
+  const result = await AppDataSource.manager.query(`
+    SELECT 
+      NVL(ADD_LESS, 'A') AS ADD_LESS,
+      NVL(TYPE_DESC, ' ') AS TYPE_DESC,
+      NVL(TYPE_PER, 0) AS PER,
+      NVL(TYPE_AMT, 0) AS AMOUNT,
+      NVL(TYPE_RATE, 0) AS NONRATE,
+      NVL(ADD_RATE_PER, 0) AS ADDRATEPER,
+      NVL(ADD_RATE_AMT, 0) AS ADDRATEAMT,
+      NVL(ONWHICH, 0) AS ONWHICH,
+      NVL(HUIDNO, ' ') AS HUIDNO
+    FROM 
+      jlot_det12
+    WHERE 
+      delflag IS NULL
+      AND lot_det1fk = ${tagId}
+  `);
+
+  const mappedResult = result.map((e: any) => {
+    return {
+      addLess: e.ADD_LESS,
+      typeDesc: e.TYPE_DESC,
+      per: e.PER,
+      amount: e.AMOUNT,
+      nonRate: e.NONRATE,
+      addRatePer: e.ADDRATEPER,
+      addRateAmt: e.ADDRATEAMT,
+      onWhich: e.ONWHICH,
+      huidNo: e.HUIDNO,
+    };
+  });
+
+  return mappedResult;
+};
+
+export const getTaxCharges = async (
+  companyId: number,
+  taxPrimaryKey?: number
+) => {
+  let query = `
+    SELECT *
+    FROM mas_tax
+    WHERE COMPANYFK = ${companyId}
+      AND DELFLAG IS NULL
+  `;
+
+  if (taxPrimaryKey) {
+    query += ` AND TAXPK = ${taxPrimaryKey}`;
+  }
+
+  const result = await AppDataSource.manager.query(query);
+
+  const mappedResult = result.map((e: any) => {
+    return {
+      taxPk: e.TAXPK,
+      code: e.CODE,
+      name: e.NAME,
+      taxPer: e.TAX_PER,
+      accode: e.ACCODE,
+      companyFk: e.COMPANYFK,
+      branchFk: e.BRANCHFK,
+      rrowId: e.RROWID,
+      cbyFk: e.CBYFK,
+      cdate: e.CDATE,
+      mbyFk: e.MBYFK,
+      mdate: e.MDATE,
+      abyFk: e.ABYFK,
+      adate: e.ADATE,
+      delFlag: e.DELFLAG,
+      accFk: e.ACCFK,
+      slaccFk: e.SLACCFK,
+      salesTypeFk: e.SALESTYPEFK,
+      taxType: e.TAX_TYPE,
+      repName: e.REP_NAME,
+      surcharge: e.SURCHARGE,
+      surAccFk: e.SUR_ACCFK,
+      gsstkFk: e.GSSTKFK,
+      catCode: e.CATCODE,
+      tferFk: e.TFERFK,
+      cferFk: e.CFERFK,
+      downFk: e.DOWNFK,
+      purStockUpd: e.PUR_STOCK_UPD,
+      refTaxPk: e.REFTAXPK,
+      salStockUpd: e.SAL_STOCK_UPD,
+      purAccUpd: e.PUR_ACC_UPD,
+      refSurAccFk: e.REFSUR_ACCFK,
+      salAccUpd: e.SAL_ACC_UPD,
+      refAccFk: e.REFACCFK,
+      refGsstkFk: e.REFGSSTKFK,
+      purAccFk: e.PUR_ACCFK,
+    };
+  });
+
+  return mappedResult;
+};
