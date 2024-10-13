@@ -3,6 +3,7 @@ import { MasBranch } from "../entities/MasBranch";
 import { MasCounter } from "../entities/MasCounter";
 import { TarUsers } from "../entities/TarUsers";
 import { getBranchesQuery } from "../queries/Branch";
+import logger from "../utils/Logger";
 
 export const getAllBranches = async (branchName: string) => {
   const branchRepository = await AppDataSource.getRepository(MasBranch);
@@ -29,31 +30,37 @@ export const fetchCounters = async (
   branchId: number,
   counter: string
 ) => {
-  // console.log('query--', getBranchesQuery(branchName))
-  const counterRepository = AppDataSource.getRepository(MasCounter);
+  try {
+    // console.log('query--', getBranchesQuery(branchName))
+    const counterRepository = AppDataSource.getRepository(MasCounter);
 
-  const responseArray: any = [];
-  const countersQuery = counterRepository
-    .createQueryBuilder("counter")
-    .select(["counter.counterpk", "counter.location", "counter.section"]) // Select specific columns
-    .where("counter.delflag IS NULL") // Check delflag is NULL
-    .andWhere("counter.active = :active", { active: "Y" }) // Active is 'Y'
-    .andWhere("counter.COMPANYFK = :companyId", { companyId }) // Match companyId
-    .andWhere("counter.branchfk = :branchId", { branchId }) // Match branchId
-    .orderBy("counter.location"); // Order by location
-  if (counter) {
-    countersQuery.andWhere("TRIM(UPPER(counter.location)) LIKE :location", {
-      location: `${counter.toUpperCase()}%`,
-    }); // Trim and upper case for location
+    const responseArray: any = [];
+    const countersQuery = counterRepository
+      .createQueryBuilder("counter")
+      .select(["counter.counterpk", "counter.location", "counter.section"]) // Select specific columns
+      .where("counter.delflag IS NULL") // Check delflag is NULL
+      .andWhere("counter.active = :active", { active: "Y" }) // Active is 'Y'
+      .andWhere("counter.COMPANYFK = :companyId", { companyId }) // Match companyId
+      .andWhere("counter.branchfk = :branchId", { branchId }) // Match branchId
+      .orderBy("counter.location"); // Order by location
+    if (counter) {
+      countersQuery.andWhere("TRIM(UPPER(counter.location)) LIKE :location", {
+        location: `${counter.toUpperCase()}%`,
+      }); // Trim and upper case for location
+    }
+    const counters = await countersQuery.getMany();
+    // console.log("counters--", counters);
+    if (counters) {
+      counters.map((e: any) => {
+        return (e.displayText = e.location + "-" + e.section);
+      });
+    }
+    return counters;
+  } catch (error: any) {
+    logger.info("Error fetching counters:", error.message);
+    logger.info(error.stack);
+    return [];
   }
-  const counters = await countersQuery.getMany();
-  // console.log("counters--", counters);
-  if (counters) {
-    counters.map((e: any) => {
-      return (e.displayText = e.location + "-" + e.section);
-    });
-  }
-  return counters;
 };
 
 export const fetchUser = async (companyId: number, username: string) => {
